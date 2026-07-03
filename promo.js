@@ -17,7 +17,7 @@
   const baseGrossFor = v => (v.discGross != null ? v.discGross : U.baseDiscGross);
   const baseNet = () => net(baseGrossFor(state.variant));
   const extraNet = () => net(U.segDiscGross[state.segment.id] || 0);
-  const segmentApplies = () => extraNet() > baseNet();
+  const segmentApplies = () => extraNet() > 0 && extraNet() >= baseNet();
   const totalDiscount = () => Math.max(baseNet(), extraNet());
   const netPrice = () => state.variant.otr - totalDiscount();
   const daysLeft = () => Math.ceil((new Date(D.periodEnd + "T23:59:59") - new Date()) / 86400000);
