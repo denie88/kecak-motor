@@ -83,8 +83,7 @@ window.KECAK_DATA = {
     "matic": "Matic",
     "cub": "Cub / Bebek",
     "sport": "Sport",
-    "ev": "Motor Listrik",
-    "premium": "Premium & Import"
+    "ev": "Motor Listrik"
   },
   "units": {
     "beat-sporty": {
@@ -1099,139 +1098,6 @@ window.KECAK_DATA = {
           "desc": "Selama persediaan masih ada"
         }
       ]
-    },
-    "st125-dax": {
-      "name": "Honda ST125 Dax",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "jz1",
-          "label": "STD",
-          "otr": 84350000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
-    },
-    "sh150": {
-      "name": "Honda SH150i",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "hr1",
-          "label": "STD",
-          "otr": 45990000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
-    },
-    "forza": {
-      "name": "Honda Forza 250",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "fb2",
-          "label": "STD",
-          "otr": 99330000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
-    },
-    "super-cub-c125": {
-      "name": "Honda Super Cub C125",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "am1",
-          "label": "STD",
-          "otr": 81380000
-        },
-        {
-          "id": "amb",
-          "label": "STD (AMB)",
-          "otr": 81380000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
-    },
-    "monkey": {
-      "name": "Honda Monkey",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "jy1",
-          "label": "STD",
-          "otr": 89060000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
-    },
-    "crf250-rally": {
-      "name": "Honda CRF250 Rally",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "jt2",
-          "label": "STD",
-          "otr": 100280000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
-    },
-    "crf250l": {
-      "name": "Honda CRF250L",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "jtb",
-          "label": "STD",
-          "otr": 92790000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
-    },
-    "ct125": {
-      "name": "Honda CT125",
-      "category": "premium",
-      "variants": [
-        {
-          "id": "az0",
-          "label": "STD",
-          "otr": 83750000
-        }
-      ],
-      "baseDiscGross": 0,
-      "baseNote": "",
-      "creditOnly": false,
-      "segDiscGross": {},
-      "gifts": []
     }
   }
 };
