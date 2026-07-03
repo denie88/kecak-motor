@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promo Bulan Ini | Kecak Motor</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,700;0,900;1,900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#E4002B; --ink:#16161a; --ink-2:#1f1f26; --paper:#f7f5f0; --grey:#9b9ba6; --green:#17b26a; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Plus Jakarta Sans',sans-serif; background:var(--ink); color:var(--paper); min-height:100vh;
+    background-image:radial-gradient(ellipse 80% 40% at 50% -5%, rgba(228,0,43,.28), transparent 60%);
+    padding-bottom:40px;
+  }
+  .wrap { max-width:480px; margin:0 auto; padding:28px 18px; }
+  .brand { font-family:'Archivo',sans-serif; font-weight:900; font-size:20px; text-transform:uppercase; letter-spacing:.04em; }
+  .brand em { color:var(--red); font-style:normal; }
+  h1 { font-family:'Archivo',sans-serif; font-weight:900; font-style:italic; text-transform:uppercase; font-size:34px; line-height:1; margin:24px 0 6px; }
+  .sub { color:var(--grey); font-size:14px; margin-bottom:8px; }
+  .cat { font-family:'Archivo',sans-serif; font-weight:900; text-transform:uppercase; font-size:14px; letter-spacing:.06em; margin:26px 0 10px; display:flex; align-items:center; gap:10px; }
+  .cat::after { content:""; flex:1; height:1px; background:linear-gradient(90deg, rgba(255,255,255,.18), transparent); }
+  a.unit {
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    background:var(--ink-2); border:1px solid rgba(255,255,255,.09); border-radius:14px;
+    padding:15px 16px; margin-bottom:10px; text-decoration:none; color:var(--paper);
+  }
+  a.unit:active { border-color:var(--red); }
+  .unit .n { font-weight:800; font-size:15.5px; }
+  .unit .d { font-size:12px; color:var(--grey); margin-top:3px; }
+  .unit .d b { color:var(--green); font-weight:700; }
+  .unit .arrow { color:var(--red); font-size:22px; font-weight:900; }
+  footer { margin-top:34px; text-align:center; font-size:11px; color:#55555f; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Kecak <em>Motor</em></div>
+  <h1>Promo Bulan Ini</h1>
+  <div class="sub" id="sub"></div>
+  <div id="catalog"></div>
+  <footer>Halaman promo resmi Kecak Motor</footer>
+</div>
+<script src="data.js"></script>
+<script>
+(function(){
+  const D = window.KECAK_DATA;
+  const rupiah = n => "Rp " + Math.round(n).toLocaleString("id-ID");
+  const net = g => Math.round(g / (1 + D.ppnRate));
+  const qs = location.search || "";
+  document.getElementById("sub").textContent = "Harga & promo " + D.monthLabel + " - pilih unit.";
+  const order = ["matic","cub","sport","ev","premium"];
+  const cat = document.getElementById("catalog");
+  order.forEach(c => {
+    const units = Object.entries(D.units).filter(([id,u]) => u.category === c);
+    if (!units.length) return;
+    const h = document.createElement("div"); h.className = "cat"; h.textContent = D.categories[c]; cat.appendChild(h);
+    units.sort((a,b) => a[1].variants[0].otr - b[1].variants[0].otr);
+    units.forEach(([id,u]) => {
+      const discs = u.variants.map(v => net(v.discGross != null ? v.discGross : u.baseDiscGross));
+      const segMax = Math.max(0, ...Object.values(u.segDiscGross || {}).map(net));
+      const maxDisc = Math.max(...discs, segMax);
+      const minPrice = Math.min(...u.variants.map(v => v.otr - Math.max(net(v.discGross != null ? v.discGross : u.baseDiscGross), 0)));
+      const a = document.createElement("a");
+      a.className = "unit"; a.href = id + "/" + qs;
+      let d = "Mulai " + rupiah(minPrice);
+      if (maxDisc > 0) d += " - diskon s.d. <b>" + rupiah(maxDisc) + "</b>";
+      a.innerHTML = '<div><div class="n">' + u.name + '</div><div class="d">' + d + '</div></div><div class="arrow">&rsaquo;</div>';
+      cat.appendChild(a);
+    });
+  });
+})();
+</script>
+</body>
+</html>
