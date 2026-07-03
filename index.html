@@ -87,12 +87,12 @@
 <body>
 <div class="wrap">
   <header class="rv">
-    <div class="brand">Kecak <em>Motor</em></div>
+    <div class="brand" style="display:flex;align-items:center;gap:9px;"><img src="logo-icon.png" alt="Kecak Motor" style="height:34px;width:auto;"><span>Kecak <em>Motor</em></span></div>
     <div class="countdown" id="countdown"></div>
   </header>
   <div class="hero">
     <span class="month-tag rv" style="animation-delay:.05s" id="monthTag"></span>
-    <h1 class="rv" style="animation-delay:.1s">Promo<br>Bulan Ini</h1>
+    <h1 class="rv" style="animation-delay:.1s">Harga &amp; Promo<br><span id="h1month"></span></h1>
     <div class="sub rv" style="animation-delay:.15s">Harga OTR Bali resmi setelah diskon. Klik unit untuk detail &amp; simulasi kredit.</div>
   </div>
   <nav class="pills rv" style="animation-delay:.2s" id="pills"></nav>
@@ -108,6 +108,8 @@
   const qs = location.search || "";
 
   document.getElementById("monthTag").textContent = "Promo " + D.monthLabel;
+  document.getElementById("h1month").textContent = D.monthLabel;
+  document.title = "Harga & Promo " + D.monthLabel + " | " + D.dealer;
   const dl = Math.ceil((new Date(D.periodEnd + "T23:59:59") - new Date()) / 86400000);
   const cd = document.getElementById("countdown");
   if (dl > 7) cd.textContent = "Berlaku s.d. 31 " + D.monthLabel;

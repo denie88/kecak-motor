@@ -117,7 +117,7 @@
   document.body.innerHTML = `
   <div class="wrap">
     <header>
-      <a class="brand" href="../${qs}">Kecak <em>Motor</em></a>
+      <a class="brand" href="../${qs}" style="display:flex;align-items:center;gap:9px;"><img src="../logo-icon.png" alt="Kecak Motor" style="height:30px;width:auto;"><span>Kecak <em>Motor</em></span></a>
       <div class="updated">Terakhir diperbarui<br><b id="lastUpdated"></b></div>
     </header>
     <div class="loc-chip"><span class="dot"></span><span id="locLabel"></span></div>
