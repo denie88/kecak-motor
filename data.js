@@ -29,11 +29,10 @@ window.KECAK_DATA = {
     "flatMonthly": 0.022,
     "minDpPct": 0.1,
     "tenors": [
-      11,
-      17,
-      23,
-      29,
-      35
+      24,
+      36,
+      48,
+      60
     ]
   },
   "trackEndpoint": "",

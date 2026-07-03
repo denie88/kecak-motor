@@ -12,7 +12,7 @@
   const qs = location.search || "";
 
   const segs = D.segments.filter(s => s.id === "umum" || (U.segDiscGross[s.id] || 0) > 0);
-  let state = { variant: U.variants[0], segment: segs[0], dpPct: 0.20, tenor: D.credit.tenors[2] };
+  let state = { variant: U.variants[0], segment: segs[0], dpPct: 0.10, tenor: D.credit.tenors[1] };
 
   const baseGrossFor = v => (v.discGross != null ? v.discGross : U.baseDiscGross);
   const baseNet = () => net(baseGrossFor(state.variant));
@@ -96,6 +96,7 @@
   .sim-result .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);font-weight:700;}
   .sim-result .num{font-family:'Archivo',sans-serif;font-weight:900;font-size:34px;color:#fff;margin-top:4px;}
   .sim-result .num span{font-size:15px;font-weight:700;color:var(--grey);}
+  .perhari{font-size:12px;color:var(--green);font-weight:700;margin-top:5px;}
   .disclaimer{font-size:10.5px;color:var(--grey);line-height:1.5;margin-top:12px;text-align:center;}
   .other-units{display:block;text-align:center;margin-top:28px;color:var(--grey);font-size:13px;font-weight:600;text-decoration:none;border:1.5px dashed rgba(255,255,255,.2);border-radius:12px;padding:13px;}
   footer{margin-top:26px;padding-bottom:8px;text-align:center;font-size:10.5px;color:#55555f;line-height:1.6;}
@@ -151,7 +152,7 @@
         <input type="range" id="dpRange" min="10" max="60" value="20" step="1">
         <div class="sim-row-label"><span>Tenor</span></div>
         <div class="tenor-grid" id="tenorGrid"></div>
-        <div class="sim-result"><div class="lbl">Estimasi cicilan</div><div class="num" id="cicilan"></div></div>
+        <div class="sim-result"><div class="lbl">Estimasi cicilan</div><div class="num" id="cicilan"></div><div class="perhari" id="perhari"></div></div>
         <div class="disclaimer">*Estimasi perhitungan, bukan penawaran resmi leasing. Angka pasti dikonfirmasi tim kami via WhatsApp.</div>
       </div>
     </section>
@@ -247,6 +248,7 @@
     const pokok = netPrice() - dpAmt;
     const cicilan = (pokok + pokok * D.credit.flatMonthly * state.tenor) / state.tenor;
     document.getElementById("cicilan").innerHTML = rupiah(cicilan) + " <span>/bln</span>";
+    document.getElementById("perhari").textContent = "setara " + rupiah(Math.round(cicilan/30/1000)*1000) + " per hari";
   }
   function waLink(customMsg) {
     const sp = salesPerson();
