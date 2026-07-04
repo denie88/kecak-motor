@@ -8,11 +8,14 @@
   const rupiah = n => "Rp " + Math.round(n).toLocaleString("id-ID");
   const net = g => Math.round(g / (1 + D.ppnRate));
   const params = new URLSearchParams(location.search);
-  const src = { loc: params.get("loc") || "", sales: params.get("sales") || "" };
+  const src = { loc: params.get("loc") || "", sales: params.get("sales") || "", co: params.get("co") || "" };
+  const company = (D.companies && D.companies[src.co]) || null;
   const qs = location.search || "";
 
   const segs = D.segments.filter(s => s.id === "umum" || (U.segDiscGross[s.id] || 0) > 0);
-  let state = { variant: U.variants[0], segment: segs[0], dpPct: 0.10, tenor: D.credit.tenors[1] };
+  let initSeg = segs[0];
+  if (company) { const m = segs.find(s => s.id === company.segment); if (m) initSeg = m; }
+  let state = { variant: U.variants[0], segment: initSeg, dpPct: 0.10, tenor: D.credit.tenors[1] };
 
   const baseGrossFor = v => (v.discGross != null ? v.discGross : U.baseDiscGross);
   const baseNet = () => net(baseGrossFor(state.variant));
@@ -22,17 +25,17 @@
   const netPrice = () => state.variant.otr - totalDiscount();
   const daysLeft = () => Math.ceil((new Date(D.periodEnd + "T23:59:59") - new Date()) / 86400000);
   const salesPerson = () => (D.salespeople && D.salespeople[src.sales]) || null;
-  const routeToSales = () => !!salesPerson() && !src.loc;
+  const routeToSales = () => !!salesPerson() && !src.loc && !src.co;
 
   function track(event) {
     try {
       const k = "kecak_stats";
       const s = JSON.parse(localStorage.getItem(k) || "{}");
-      const key = event + "|" + window.UNIT_ID + "|" + (src.loc || "direct") + "|" + (src.sales || "-");
+      const key = event + "|" + window.UNIT_ID + "|" + (src.co || src.loc || "direct") + "|" + (src.sales || "-");
       s[key] = (s[key] || 0) + 1;
       localStorage.setItem(k, JSON.stringify(s));
       if (D.trackEndpoint) navigator.sendBeacon(D.trackEndpoint, JSON.stringify({
-        event, unit: window.UNIT_ID, loc: src.loc, sales: src.sales,
+        event, unit: window.UNIT_ID, loc: src.loc, co: src.co, sales: src.sales,
         variant: state.variant.id, segment: state.segment.id, t: Date.now()
       }));
     } catch (e) {}
@@ -256,9 +259,11 @@
     let msg = customMsg;
     if (!msg) {
       msg = "Halo " + D.dealer + ", saya tertarik " + U.name + " " + state.variant.label + " promo " + D.monthLabel + ".";
-      if (segmentApplies()) msg += "\nSaya termasuk: " + state.segment.label + ".";
+      if (company) msg += "\nSaya karyawan " + company.name + ".";
+      else if (segmentApplies()) msg += "\nSaya termasuk: " + state.segment.label + ".";
       msg += "\nRencana DP " + rupiah(netPrice() * state.dpPct) + ", tenor " + state.tenor + " bulan.";
-      if (src.loc) msg += "\n(Scan dari: " + src.loc + ")";
+      if (company) msg += "\n(Scan dari: " + company.name + ")";
+      else if (src.loc) msg += "\n(Scan dari: " + src.loc + ")";
       if (src.sales) msg += "\n(Sales: " + (sp ? sp.name : src.sales) + ")";
     }
     return "https://wa.me/" + target + "?text=" + encodeURIComponent(msg);
@@ -275,6 +280,7 @@
     document.getElementById("lastUpdated").textContent = new Date(D.lastUpdated).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
     let chip = "Poster resmi " + D.dealer;
     if (src.loc) chip = "Poster resmi - " + src.loc.replace(/-/g, " ");
+    if (company) chip = "Khusus karyawan " + company.name;
     if (routeToSales()) chip = "Dilayani oleh " + salesPerson().name + " - " + D.dealer;
     document.getElementById("locLabel").textContent = chip;
     const dl = daysLeft(), cd = document.getElementById("countdown");

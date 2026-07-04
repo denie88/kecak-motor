@@ -1098,5 +1098,19 @@ window.KECAK_DATA = {
         }
       ]
     }
+  },
+  "companies": {
+    "contoh-hotel": {
+      "name": "Hotel Contoh Bali",
+      "segment": "hotel"
+    },
+    "contoh-villa": {
+      "name": "Villa Contoh",
+      "segment": "villa"
+    },
+    "contoh-koperasi": {
+      "name": "Koperasi Merah Putih Contoh",
+      "segment": "kmp"
+    }
   }
 };
