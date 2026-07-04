@@ -1100,17 +1100,29 @@ window.KECAK_DATA = {
     }
   },
   "companies": {
-    "contoh-hotel": {
-      "name": "Hotel Contoh Bali",
+    "kumala-pantai": {
+      "name": "Hotel Kumala Pantai",
       "segment": "hotel"
     },
-    "contoh-villa": {
-      "name": "Villa Contoh",
-      "segment": "villa"
+    "alila-seminyak": {
+      "name": "Alila Seminyak",
+      "segment": "hotel"
     },
-    "contoh-koperasi": {
-      "name": "Koperasi Merah Putih Contoh",
-      "segment": "kmp"
+    "hard-rock": {
+      "name": "Hard Rock Hotel",
+      "segment": "hotel"
+    },
+    "w-hotel": {
+      "name": "W Hotel",
+      "segment": "hotel"
+    },
+    "potato-head": {
+      "name": "Potato Head",
+      "segment": "hotel"
+    },
+    "kembali-villas": {
+      "name": "Kembali Villas",
+      "segment": "villa"
     }
   }
 };
