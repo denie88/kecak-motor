@@ -261,9 +261,6 @@
       msg = "Halo " + D.dealer + ", saya tertarik " + U.name + " " + state.variant.label + " promo " + D.monthLabel + ".";
       if (company) msg += "\nSaya karyawan " + company.name + ".";
       else if (segmentApplies()) msg += "\nSaya termasuk: " + state.segment.label + ".";
-      msg += "\nRencana DP " + rupiah(netPrice() * state.dpPct) + ", tenor " + state.tenor + " bulan.";
-      if (company) msg += "\n(Scan dari: " + company.name + ")";
-      else if (src.loc) msg += "\n(Scan dari: " + src.loc + ")";
       if (src.sales) msg += "\n(Sales: " + (sp ? sp.name : src.sales) + ")";
     }
     return "https://wa.me/" + target + "?text=" + encodeURIComponent(msg);
